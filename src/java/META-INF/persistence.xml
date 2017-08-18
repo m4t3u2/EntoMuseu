@@ -4,6 +4,7 @@
     <class>modelo.Usuario</class>
     <class>modelo.Ordem</class>
     <class>modelo.Familia</class>
+    <class>modelo.Genero</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/entobase"/>

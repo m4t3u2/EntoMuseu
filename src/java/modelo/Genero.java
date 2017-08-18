@@ -15,14 +15,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "familia")
+@Table(name = "genero")
 @NamedQueries({
-    @NamedQuery(name="Familia.listarTodos", query ="SELECT f FROM Familia f ORDER BY f.nome"),
-    @NamedQuery(name="Familia.buscarPorOrdem", query ="SELECT f FROM Familia f WHERE f.ordem.codigo = :codigo ORDER BY f.nome"),
-    @NamedQuery(name="Familia.listarPorNome", query ="SELECT f FROM Familia f WHERE f.nome = :nome")
+    @NamedQuery(name="Genero.listarTodos", query ="SELECT g FROM Genero g ORDER BY g.nome"),
+    @NamedQuery(name="Genero.buscarPorFamilia", query ="SELECT g FROM Genero g WHERE g.familia.codigo = :codigo ORDER BY g.nome"),
+    @NamedQuery(name="Genero.listarPorNome", query ="SELECT g FROM Genero g WHERE g.nome = :nome")
 })
-public class Familia implements Serializable {
-
+public class Genero implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo")
@@ -35,9 +34,9 @@ public class Familia implements Serializable {
     private String descricao;
     
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "ordem", referencedColumnName = "codigo")
-    private Ordem ordem;
-    
+    @JoinColumn (name = "familia", referencedColumnName = "codigo")
+    private Familia familia;
+
     public Integer getCodigo() {
         return codigo;
     }
@@ -62,40 +61,42 @@ public class Familia implements Serializable {
         this.descricao = descricao;
     }
 
-    public Ordem getOrdem() {
-        return ordem;
+    public Familia getFamilia() {
+        return familia;
     }
 
-    public void setOrdem(Ordem ordem) {
-        this.ordem = ordem;
+    public void setFamilia(Familia familia) {
+        this.familia = familia;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 71 * hash + Objects.hashCode(this.codigo);
-        hash = 71 * hash + Objects.hashCode(this.nome);
+        hash = 47 * hash + Objects.hashCode(this.codigo);
+        hash = 47 * hash + Objects.hashCode(this.nome);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Familia other = (Familia) obj;
-        if (!Objects.equals(this.codigo, other.codigo)) {
+        final Genero other = (Genero) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (!Objects.equals(this.nome, other.nome)) {
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
     }
-    
     
     
 }

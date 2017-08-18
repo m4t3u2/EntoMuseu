@@ -18,7 +18,7 @@
                                        var="item" 
                                        itemValue="#{item}"                     
                                        itemLabel="#{item.nome}"/>  
-                       
+                        <p:ajax event="change" listener="#{insetoControle.atualizarFamilias()}" process="@this" update="comboFamilia"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
                 
@@ -30,6 +30,21 @@
                                      required="true" requiredMessage="Escolha um item.">
                         <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
                         <f:selectItems value="#{insetoControle.familias}" 
+                                       var="item" 
+                                       itemValue="#{item}"                     
+                                       itemLabel="#{item.nome}"/>  
+                       <p:ajax event="change" listener="#{insetoControle.atualizarGeneros()}" process="@this" update="comboGenero"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                
+                
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Genero"/>
+                    <p:selectOneMenu id="comboGenero" value="#{insetoControle.generoSelecionado}" 
+                                     converter="generoConverter" 
+                                     required="true" requiredMessage="Escolha um item.">
+                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                        <f:selectItems value="#{insetoControle.generos}" 
                                        var="item" 
                                        itemValue="#{item}"                     
                                        itemLabel="#{item.nome}"/>  

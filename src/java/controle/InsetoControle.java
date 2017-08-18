@@ -2,12 +2,14 @@
 package controle;
 
 import dao.FamiliaDao;
+import dao.GeneroDao;
 import dao.OrdemDao;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import modelo.Familia;
+import modelo.Genero;
 import modelo.Ordem;
 
 @ManagedBean (name="insetoControle")
@@ -20,6 +22,10 @@ public class InsetoControle implements Serializable{
     private List<Familia> familias;
     private FamiliaDao familiaDao;
     private Familia familiaSelecionada;
+    
+    private List<Genero> generos;
+    private GeneroDao generoDao;
+    private Genero generoSelecionado;
 
     public InsetoControle() {
         ordemDao = new OrdemDao();
@@ -30,9 +36,20 @@ public class InsetoControle implements Serializable{
         familias = familiaDao.listarFamilia();
         familiaSelecionada = new Familia();
         
+        generoDao = new GeneroDao();
+        generos = generoDao.listarGenero();
+        generoSelecionado = new Genero();
+        
     }
     
-
+    public void atualizarFamilias(){
+        familias = familiaDao.listarPorOrdem(ordemSelecionada);
+    }
+    
+    public void atualizarGeneros(){
+        generos = generoDao.listarPorFamilia(familiaSelecionada);
+    }
+    
     public List<Ordem> getOrdens() {
         return ordens;
     }
@@ -79,6 +96,30 @@ public class InsetoControle implements Serializable{
 
     public void setFamiliaSelecionada(Familia familiaSelecionada) {
         this.familiaSelecionada = familiaSelecionada;
+    }
+
+    public List<Genero> getGeneros() {
+        return generos;
+    }
+
+    public void setGeneros(List<Genero> generos) {
+        this.generos = generos;
+    }
+
+    public GeneroDao getGeneroDao() {
+        return generoDao;
+    }
+
+    public void setGeneroDao(GeneroDao generoDao) {
+        this.generoDao = generoDao;
+    }
+
+    public Genero getGeneroSelecionado() {
+        return generoSelecionado;
+    }
+
+    public void setGeneroSelecionado(Genero generoSelecionado) {
+        this.generoSelecionado = generoSelecionado;
     }
     
     

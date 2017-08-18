@@ -1,20 +1,19 @@
 package dao;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import modelo.Familia;
+import modelo.Genero;
 import modelo.Ordem;
 import util.JpaUtil;
 
-public class FamiliaDao implements Serializable {
-    
-    public Familia buscarPorNome(String nome){
-        Familia temp;
+public class GeneroDao {
+        public Genero buscarPorNome(String nome){
+        Genero temp;
         EntityManager manager = JpaUtil.getEntityManager();
-        TypedQuery<Familia> query = manager.createNamedQuery("Familia.listarPorNome", Familia.class);
+        TypedQuery<Genero> query = manager.createNamedQuery("Genero.listarPorNome", Genero.class);
         query.setParameter("nome", nome);
         temp = query.getSingleResult();
         manager.close();
@@ -22,29 +21,29 @@ public class FamiliaDao implements Serializable {
     }
     
     
-    public boolean inserir(Familia fam){
+    public boolean inserir(Genero gen){
         EntityManager manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 
         tx.begin();
-        manager.persist(fam);
+        manager.persist(gen);
         tx.commit();
         manager.close();
         return true;
     } 
     
-    public List<Familia> listarFamilia(){
+    public List<Genero> listarGenero(){
         EntityManager manager = JpaUtil.getEntityManager();
-        TypedQuery<Familia> query = manager.createNamedQuery("Familia.listarTodos", Familia.class);
-        List<Familia> lista = query.getResultList();
+        TypedQuery<Genero> query = manager.createNamedQuery("Genero.listarTodos", Genero.class);
+        List<Genero> lista = query.getResultList();
         manager.close();
         return lista;
     }
     
-    public List<Familia> listarPorOrdem(Ordem ordem){
+    public List<Genero> listarPorFamilia(Familia familia){
         EntityManager manager = JpaUtil.getEntityManager();
-        TypedQuery<Familia> query = manager.createNamedQuery("Familia.buscarPorOrdem", Familia.class);
-        query.setParameter("codigo", ordem.getCodigo());
-        List<Familia> lista = query.getResultList();
+        TypedQuery<Genero> query = manager.createNamedQuery("Genero.buscarPorFamilia", Genero.class);
+        query.setParameter("codigo", familia.getCodigo());
+        List<Genero> lista = query.getResultList();
         manager.close();
         return lista;     
     }

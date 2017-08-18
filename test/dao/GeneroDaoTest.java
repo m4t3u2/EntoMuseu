@@ -5,8 +5,8 @@
  */
 package dao;
 
-import java.util.List;
 import modelo.Familia;
+import modelo.Genero;
 import modelo.Ordem;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,9 +19,9 @@ import static org.junit.Assert.*;
  *
  * @author Mateus
  */
-public class FamiliaDaoTest {
+public class GeneroDaoTest {
     
-    public FamiliaDaoTest() {
+    public GeneroDaoTest() {
     }
     
     @BeforeClass
@@ -40,22 +40,23 @@ public class FamiliaDaoTest {
     public void tearDown() {
     }
 
-//    @Test
-//    public void testInserir() {
-//        Familia fa = new Familia();
-//        fa.setNome("Quarta Familia");
-//        fa.setDescricao("Quarta familia cadastrada apra testar");
-//        Ordem o = new Ordem();
-//        o.setCodigo(1);
-//        fa.setOrdem(o);
-//        new FamiliaDao().inserir(fa);
-//    }
+    @Test
+    public void testSomeMethod() {
+
+    }
     
     @Test
-    public void testListar(){
-        Ordem ordem = new Ordem();
-        ordem.setCodigo(1);
-        List<Familia> lista = new FamiliaDao().listarPorOrdem(ordem);
-        for(Familia o:lista)System.out.println(o.getNome());
+    public void testInserir() {
+        Ordem or = new Ordem();
+        or = new OrdemDao().buscar(1);
+        Familia fa = new Familia();
+        fa.setCodigo(4);
+        fa.setOrdem(or);
+        Genero ge = new Genero();
+        ge.setNome("Primeiro Genero");
+        ge.setDescricao("Primeiro Genero cadastrada para testar");
+        ge.setFamilia(fa);
+        new GeneroDao().inserir(ge);
     }
+    
 }

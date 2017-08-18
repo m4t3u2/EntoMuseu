@@ -38,4 +38,12 @@ public class OrdemDao implements Serializable{
         manager.close();
         return temp;
     }
+    
+    public Ordem buscar(Object id){
+        Ordem temp;
+        EntityManager manager = JpaUtil.getEntityManager();
+        temp = manager.find(Ordem.class, id);
+        manager.close();
+        return temp;
+    }
 }
