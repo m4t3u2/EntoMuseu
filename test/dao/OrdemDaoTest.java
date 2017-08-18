@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import java.util.List;
@@ -43,8 +39,8 @@ public class OrdemDaoTest {
 //    @Test
 //    public void testInserir() {
 //        Ordem or = new Ordem();
-//        or.setNome("Segunda Ordem");
-//        or.setDescricao("Segunda ordem cadastrada apra testar");
+//        or.setNome("Primeira Ordem");
+//        or.setDescricao("Primeira ordem cadastrada para testar");
 //        new OrdemDao().inserir(or);
 //    }
 //    

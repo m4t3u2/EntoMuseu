@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -8,7 +9,7 @@ import modelo.Ordem;
 import modelo.Usuario;
 import util.JpaUtil;
 
-public class UsuarioDao {
+public class UsuarioDao implements Serializable{
     
     public Usuario autenticar(Usuario usr){
         Usuario temp = null; //usuario retornado na consulta ao banco
