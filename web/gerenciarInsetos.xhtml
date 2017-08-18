@@ -3,7 +3,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:composition template="template.xhtml">
         <ui:define name="body">
@@ -21,8 +22,8 @@
                         <p:ajax event="change" listener="#{insetoControle.atualizarFamilias()}" process="@this" update="comboFamilia"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
-                
-                
+
+
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Família"/>
                     <p:selectOneMenu id="comboFamilia" value="#{insetoControle.familiaSelecionada}" 
@@ -33,11 +34,11 @@
                                        var="item" 
                                        itemValue="#{item}"                     
                                        itemLabel="#{item.nome}"/>  
-                       <p:ajax event="change" listener="#{insetoControle.atualizarGeneros()}" process="@this" update="comboGenero"/>
+                        <p:ajax event="change" listener="#{insetoControle.atualizarGeneros()}" process="@this" update="comboGenero"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
-                
-                
+
+
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Gênero"/>
                     <p:selectOneMenu id="comboGenero" value="#{insetoControle.generoSelecionado}" 
@@ -48,11 +49,11 @@
                                        var="item" 
                                        itemValue="#{item}"                     
                                        itemLabel="#{item.nome}"/>  
-                       
+
                     </p:selectOneMenu>
                 </h:panelGrid>
-                
-                
+
+
                 <p:outputLabel value="Espécie "/>
                 <p:inputText value="#{insetoControle.novaEspecie.nome}"/>
                 <p/>
@@ -60,10 +61,20 @@
                 <p:inputTextarea value="#{insetoControle.novaEspecie.descricao}"/>
                 <p/>
                 <p:commandButton value="Cadastrar" action="#{insetoControle.cadastrar}"/>
-                
                 <p:messages />
-               
-            </h:form>     
+
+            </h:form>   
+            
+            <h:form id="form" enctype="multipart/form-data">
+
+                <h:outputLabel value="Arquivo" for="arquivo" />
+                <h:inputFile id="arquivo" value="#{insetoControle.file}" 
+                    required="true" label="Arquivo" />
+
+                <h:commandButton value="Importar"
+                                 action="#{insetoControle.upar}" />
+            </h:form>
+
         </ui:define>
     </ui:composition>    
 </html>

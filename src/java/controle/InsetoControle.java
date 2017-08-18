@@ -8,12 +8,17 @@ import dao.OrdemDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
 import modelo.Especie;
 import modelo.Familia;
 import modelo.Genero;
 import modelo.Ordem;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean (name="insetoControle")
 @ViewScoped
@@ -32,6 +37,8 @@ public class InsetoControle implements Serializable{
 
     private Especie novaEspecie;
     private EspecieDao especieDao;
+    
+    private Part arquivo;
                
     public InsetoControle() {
         ordemDao = new OrdemDao();
@@ -62,6 +69,10 @@ public class InsetoControle implements Serializable{
         novaEspecie.setGenero(generoSelecionado);
         especieDao.inserir(novaEspecie);
         novaEspecie = new Especie();        
+    }
+   
+    public void upar() {
+        System.out.println("oi");
     }
     
     public List<Ordem> getOrdens() {
@@ -151,5 +162,14 @@ public class InsetoControle implements Serializable{
     public void setEspecieDao(EspecieDao especieDao) {
         this.especieDao = especieDao;
     }
-  
+
+    public Part getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(Part arquivo) {
+        this.arquivo = arquivo;
+    }
+    
+    
 }
