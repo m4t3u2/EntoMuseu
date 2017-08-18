@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="template.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Ordem"/>
+                    <p:selectOneMenu value="#{insetoControle.ordemSelecionada.nome}" converter="ordemConverter"
+                                     required="true" requiredMessage="Escolha um item.">
+                        <f:selectItem itemLabel="Selecione uma ordem" itemValue="" noSelectionOption="true"/>
+                        <f:selectItems value="#{insetoControle.ordens}" var="item" itemLabel="#{item.nome}"
+                                       itemValue="#{item.codigo}"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+            </h:form>     
+        </ui:define>
+    </ui:composition>    
+</html>

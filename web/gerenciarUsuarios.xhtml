@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="template.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:commandLink value="Novo Usuário" onclick="PF('dlgNovoUsuario').show()"/>
+            </h:form>
+            
+            <h:form id="formPrincipal">
+                <p:dataTable var="user" value="#{usuarioControle.lista}" tableStyle="width:auto; min-width: 100%" 
+                             emptyMessage="Nenhum usuário cadastrado.">
+                    <p:column headerText="Código">
+                        <h:outputText value="#{user.codigo}"/>
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{user.nome}"/>
+                    </p:column>
+                    <p:column headerText="Login">
+                        <h:outputText value="#{user.login}"/>
+                    </p:column>
+                    <p:column headerText="Email">
+                        <h:outputText value="#{user.email}"/>
+                    </p:column>
+                    <p:column headerText="Excluir">
+                        <p:commandLink value="Excluir" actionListener="#{usuarioControle.excluir(user)}" update=":formPrincipal">
+                            <p:confirm header="Excluir Usuário" message="Você tem certeza que deseja excluir este usuário?"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel>
+                        <p:commandButton value="sim" icon="ui-icon-check" type="button" styleClass="ui-confirmdialog-yes"/>
+                        <p:commandButton value="não" icon="ui-icon-close" type="button" styleClass="ui-confirmdialog-no"/>
+                    </p:outputPanel>
+                </p:confirmDialog>
+            </h:form>
+            
+            
+            
+            <p:dialog widgetVar="dlgNovoUsuario" modal="true" appendTo="@(body)" header="Novo Usuário" resizable="false">
+                <h:form id="formularioU">
+                    <h:panelGrid columns="2">
+                    <p:outputLabel value="Nome"/>
+                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.nome}"/>
+                    <p:outputLabel value="Login"/>
+                    <p:inputText value="#{usuarioControle.novoUsuario.login}"/>
+                    <p:outputLabel value="Email"/>
+                    <p:inputText value="#{usuarioControle.novoUsuario.email}"/>
+                    <p:outputLabel value="Senha"/>
+                    <p:inputText value="#{usuarioControle.novoUsuario.senha}"/>
+                    <p:commandButton value="Ok" onclick="PF('dlgNovoUsuario').hide()" action="#{usuarioControle.incluirUsuario()}"
+                                     update=":formPrincipal,:formularioU"/>
+                    </h:panelGrid>
+                </h:form>     
+            </p:dialog>
+            
+        </ui:define>
+    </ui:composition>    
+</html>
