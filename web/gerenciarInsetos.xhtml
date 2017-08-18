@@ -10,13 +10,21 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Ordem"/>
-                    <p:selectOneMenu value="#{insetoControle.ordemSelecionada.nome}" converter="ordemConverter"
+                    <p:selectOneMenu id="comboOrdem" value="#{insetoControle.ordemSelecionada}" 
+                                     converter="ordemConverter" 
                                      required="true" requiredMessage="Escolha um item.">
-                        <f:selectItem itemLabel="Selecione uma ordem" itemValue="" noSelectionOption="true"/>
-                        <f:selectItems value="#{insetoControle.ordens}" var="item" itemLabel="#{item.nome}"
-                                       itemValue="#{item.codigo}"/>
+                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                        <f:selectItems value="#{insetoControle.ordens}" 
+                                       var="item" 
+                                       itemValue="#{item}"                     
+                                       itemLabel="#{item.nome}"/>  
+                       
                     </p:selectOneMenu>
                 </h:panelGrid>
+                
+                
+                <p:messages />
+               
             </h:form>     
         </ui:define>
     </ui:composition>    

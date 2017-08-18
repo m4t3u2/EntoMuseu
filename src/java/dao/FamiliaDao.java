@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -8,7 +9,7 @@ import modelo.Familia;
 import modelo.Ordem;
 import util.JpaUtil;
 
-public class FamiliaDao {
+public class FamiliaDao implements Serializable {
     public boolean inserir(Familia fam){
         EntityManager manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 

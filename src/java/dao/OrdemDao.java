@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -8,7 +9,7 @@ import modelo.Ordem;
 import util.JpaUtil;
 
 
-public class OrdemDao {
+public class OrdemDao implements Serializable{
     
     public boolean inserir(Ordem ord){
         EntityManager manager = JpaUtil.getEntityManager();

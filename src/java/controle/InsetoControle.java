@@ -11,9 +11,9 @@ import modelo.Ordem;
 @ManagedBean (name="insetoControle")
 @ViewScoped
 public class InsetoControle implements Serializable{
-    List<Ordem> ordens;
-    OrdemDao ordemDao;
-    Ordem ordemSelecionada;
+    private List<Ordem> ordens;
+    private OrdemDao ordemDao;
+    private Ordem ordemSelecionada;
 
     public InsetoControle() {
         ordemDao = new OrdemDao();
@@ -21,6 +21,7 @@ public class InsetoControle implements Serializable{
         ordemSelecionada = new Ordem();
     }
     
+
     public List<Ordem> getOrdens() {
         return ordens;
     }
@@ -36,7 +37,7 @@ public class InsetoControle implements Serializable{
     public void setOrdemDao(OrdemDao ordemDao) {
         this.ordemDao = ordemDao;
     }
-    
+
     public Ordem getOrdemSelecionada() {
         return ordemSelecionada;
     }
@@ -44,5 +45,6 @@ public class InsetoControle implements Serializable{
     public void setOrdemSelecionada(Ordem ordemSelecionada) {
         this.ordemSelecionada = ordemSelecionada;
     }
+    
     
 }
