@@ -30,7 +30,7 @@ public class OrdemConverter implements Converter {
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object obj) {
         if (obj == null){
-            return " ";
+            return "";
         }
         if (obj instanceof Ordem){
             Ordem ar = (Ordem)obj;
