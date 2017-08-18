@@ -1,13 +1,16 @@
 
 package controle;
 
+import dao.EspecieDao;
 import dao.FamiliaDao;
 import dao.GeneroDao;
 import dao.OrdemDao;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import modelo.Especie;
 import modelo.Familia;
 import modelo.Genero;
 import modelo.Ordem;
@@ -27,19 +30,24 @@ public class InsetoControle implements Serializable{
     private GeneroDao generoDao;
     private Genero generoSelecionado;
 
+    private Especie novaEspecie;
+    private EspecieDao especieDao;
+               
     public InsetoControle() {
         ordemDao = new OrdemDao();
         ordens = ordemDao.listarOrdem();
         ordemSelecionada = new Ordem();
         
         familiaDao = new FamiliaDao();
-        familias = familiaDao.listarFamilia();
+        familias = new ArrayList<>();
         familiaSelecionada = new Familia();
         
         generoDao = new GeneroDao();
-        generos = generoDao.listarGenero();
+        generos = new ArrayList<>();
         generoSelecionado = new Genero();
         
+        novaEspecie = new Especie();
+        especieDao = new EspecieDao(); 
     }
     
     public void atualizarFamilias(){
@@ -48,6 +56,12 @@ public class InsetoControle implements Serializable{
     
     public void atualizarGeneros(){
         generos = generoDao.listarPorFamilia(familiaSelecionada);
+    }
+    
+    public void cadastrar(){
+        novaEspecie.setGenero(generoSelecionado);
+        especieDao.inserir(novaEspecie);
+        novaEspecie = new Especie();        
     }
     
     public List<Ordem> getOrdens() {
@@ -121,6 +135,21 @@ public class InsetoControle implements Serializable{
     public void setGeneroSelecionado(Genero generoSelecionado) {
         this.generoSelecionado = generoSelecionado;
     }
-    
-    
+
+    public Especie getNovaEspecie() {
+        return novaEspecie;
+    }
+
+    public void setNovaEspecie(Especie novaEspecie) {
+        this.novaEspecie = novaEspecie;
+    }
+
+    public EspecieDao getEspecieDao() {
+        return especieDao;
+    }
+
+    public void setEspecieDao(EspecieDao especieDao) {
+        this.especieDao = especieDao;
+    }
+  
 }

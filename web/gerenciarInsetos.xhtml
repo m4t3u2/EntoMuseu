@@ -24,7 +24,7 @@
                 
                 
                 <h:panelGrid columns="2">
-                    <p:outputLabel value="Familia"/>
+                    <p:outputLabel value="Família"/>
                     <p:selectOneMenu id="comboFamilia" value="#{insetoControle.familiaSelecionada}" 
                                      converter="familiaConverter" 
                                      required="true" requiredMessage="Escolha um item.">
@@ -39,7 +39,7 @@
                 
                 
                 <h:panelGrid columns="2">
-                    <p:outputLabel value="Genero"/>
+                    <p:outputLabel value="Gênero"/>
                     <p:selectOneMenu id="comboGenero" value="#{insetoControle.generoSelecionado}" 
                                      converter="generoConverter" 
                                      required="true" requiredMessage="Escolha um item.">
@@ -52,6 +52,14 @@
                     </p:selectOneMenu>
                 </h:panelGrid>
                 
+                
+                <p:outputLabel value="Espécie "/>
+                <p:inputText value="#{insetoControle.novaEspecie.nome}"/>
+                <p/>
+                <p:outputLabel value="Descrição "/>
+                <p:inputTextarea value="#{insetoControle.novaEspecie.descricao}"/>
+                <p/>
+                <p:commandButton value="Cadastrar" action="#{insetoControle.cadastrar}"/>
                 
                 <p:messages />
                
