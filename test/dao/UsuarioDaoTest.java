@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import modelo.Usuario;
@@ -37,14 +33,18 @@ public class UsuarioDaoTest {
     @After
     public void tearDown() {
     }
-//    @Test
-//    public void autenticar(){
-//        Usuario u = new Usuario();
-//        u.setSenha("12453");
-//        u.setLogin("teste");
-//        u = new UsuarioDao().autenticar(u);
-//        assertNotNull(u);
-//    }
+    
+    /*
+    Teste de commit.
+    */
+    @Test
+    public void autenticar(){
+        Usuario u = new Usuario();
+        u.setSenha("123");
+        u.setLogin("teste");
+        u = new UsuarioDao().autenticar(u);
+        assertNotNull(u);
+    }
 
 //    @Test
 //    public void testInserir() {
