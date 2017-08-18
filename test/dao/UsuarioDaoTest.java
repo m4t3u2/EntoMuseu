@@ -36,6 +36,7 @@ public class UsuarioDaoTest {
     
     /*
     Teste de commit.
+    Teste Ok.
     */
     @Test
     public void autenticar(){
