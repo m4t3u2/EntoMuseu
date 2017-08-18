@@ -8,7 +8,7 @@
     <ui:composition template="template.xhtml">
         <ui:define name="body">
             <h:form>
-                <p:panelGrid columns="2">
+                <h:panelGrid columns="2">
                     <p:outputLabel value="Ordem"/>
                     <p:selectOneMenu value="#{insetoControle.ordemSelecionada.nome}" converter="ordemConverter"
                                      required="true" requiredMessage="Escolha um item.">
@@ -16,7 +16,7 @@
                         <f:selectItems value="#{insetoControle.ordens}" var="item" itemLabel="#{item.nome}"
                                        itemValue="#{item.codigo}"/>
                     </p:selectOneMenu>
-                </p:panelGrid>
+                </h:panelGrid>
             </h:form>     
         </ui:define>
     </ui:composition>    
