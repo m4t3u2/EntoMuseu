@@ -1,80 +1,102 @@
-
 package controle;
-
 import dao.EspecieDao;
 import dao.FamiliaDao;
 import dao.GeneroDao;
 import dao.OrdemDao;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.Part;
 import modelo.Especie;
 import modelo.Familia;
 import modelo.Genero;
 import modelo.Ordem;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-@ManagedBean (name="insetoControle")
+@ManagedBean(name = "insetoControle")
 @ViewScoped
-public class InsetoControle implements Serializable{
+public class InsetoControle implements Serializable {
+
     private List<Ordem> ordens;
     private OrdemDao ordemDao;
     private Ordem ordemSelecionada;
-    
+
     private List<Familia> familias;
     private FamiliaDao familiaDao;
     private Familia familiaSelecionada;
-    
+
     private List<Genero> generos;
     private GeneroDao generoDao;
     private Genero generoSelecionado;
 
     private Especie novaEspecie;
     private EspecieDao especieDao;
-    
-    private Part arquivo;
-               
+
+    private UploadedFile file;
+
     public InsetoControle() {
         ordemDao = new OrdemDao();
         ordens = ordemDao.listarOrdem();
         ordemSelecionada = new Ordem();
-        
+
         familiaDao = new FamiliaDao();
         familias = new ArrayList<>();
         familiaSelecionada = new Familia();
-        
+
         generoDao = new GeneroDao();
         generos = new ArrayList<>();
         generoSelecionado = new Genero();
-        
+
         novaEspecie = new Especie();
-        especieDao = new EspecieDao(); 
+        especieDao = new EspecieDao();
     }
-    
-    public void atualizarFamilias(){
+
+    public void atualizarFamilias() {
         familias = familiaDao.listarPorOrdem(ordemSelecionada);
     }
-    
-    public void atualizarGeneros(){
+
+    public void atualizarGeneros() {
         generos = generoDao.listarPorFamilia(familiaSelecionada);
     }
-    
-    public void cadastrar(){
+
+    public void cadastrar() {
         novaEspecie.setGenero(generoSelecionado);
         especieDao.inserir(novaEspecie);
-        novaEspecie = new Especie();        
+        novaEspecie = new Especie();
     }
-   
-    public void upar() {
-        System.out.println("oi");
+
+    public void uploadArquivo(FileUploadEvent event) {
+        System.out.println("passou aqui");                  // linha inutil
+        String fileName = event.getFile().getFileName();    // linha inutil
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String newFileName = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "temp" + File.separator + fileName + ".jpeg";
+        if (writeToFile(newFileName, event.getFile().getContents())) {
+            System.out.println("Arquivo gravado com sucesso.");
+        }
     }
-    
+
+    public boolean writeToFile(String path, byte[] content) {
+        boolean ok = false;
+        try {
+            File file = new File(path);
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(content);
+            fos.flush();
+            fos.close();
+            ok = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ok;
+    }
+
     public List<Ordem> getOrdens() {
         return ordens;
     }
@@ -163,13 +185,11 @@ public class InsetoControle implements Serializable{
         this.especieDao = especieDao;
     }
 
-    public Part getArquivo() {
-        return arquivo;
+    public UploadedFile getFile() {
+        return file;
     }
 
-    public void setArquivo(Part arquivo) {
-        this.arquivo = arquivo;
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
-    
-    
 }
