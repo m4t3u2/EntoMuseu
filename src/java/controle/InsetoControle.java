@@ -42,6 +42,8 @@ public class InsetoControle implements Serializable {
 
     private UploadedFile file;
 
+    private Integer ultimoInserido;
+
     public InsetoControle() {
         ordemDao = new OrdemDao();
         ordens = ordemDao.listarOrdem();
@@ -57,6 +59,8 @@ public class InsetoControle implements Serializable {
 
         novaEspecie = new Especie();
         especieDao = new EspecieDao();
+
+        ultimoInserido = 0;
     }
 
     public void atualizarFamilias() {
@@ -69,17 +73,35 @@ public class InsetoControle implements Serializable {
 
     public void cadastrar() {
         novaEspecie.setGenero(generoSelecionado);
-        especieDao.inserir(novaEspecie);
+        ultimoInserido = especieDao.inserir(novaEspecie);
         novaEspecie = new Especie();
     }
 
     public void uploadArquivo(FileUploadEvent event) {
-        System.out.println("passou aqui");                  // linha inutil
-        String fileName = event.getFile().getFileName();    // linha inutil
+        String fileName = event.getFile().getFileName();
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String newFileName = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "temp" + File.separator + fileName + ".jpeg";
+        String caminho = servletContext.getRealPath("") + File.separator + "resources"
+                + File.separator + "pacotes" + File.separator;
+        criarPasta(caminho, ultimoInserido);
+        String newFileName = servletContext.getRealPath("") + File.separator + "resources"
+                + File.separator + "pacotes"
+                + File.separator + ultimoInserido
+                + File.separator + "images"
+                + File.separator + fileName;
+
         if (writeToFile(newFileName, event.getFile().getContents())) {
             System.out.println("Arquivo gravado com sucesso.");
+        }
+    }
+
+    public void criarPasta(String caminho, Integer ultimoInserido) {
+        try {
+            File diretorio = new File(caminho + File.separator + ultimoInserido);
+            diretorio.mkdir();
+            diretorio = new File(caminho + File.separator + ultimoInserido + File.separator + "images");
+            diretorio.mkdir();
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
     }
 
@@ -193,4 +215,13 @@ public class InsetoControle implements Serializable {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
+
+    public Integer getUltimoInserido() {
+        return ultimoInserido;
+    }
+
+    public void setUltimoInserido(Integer ultimoInserido) {
+        this.ultimoInserido = ultimoInserido;
+    }
+
 }

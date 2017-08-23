@@ -14,7 +14,7 @@
                 <p:inputText id="campoLogin" size="14" value="#{indexController.usr.login}" required="true" requiredMessage="Nome obrigatório." maxlength="15"/>
                 <p:outputLabel value="Senha: "/>
                 <p:password id="campoSenha" size="14" value="#{indexController.usr.senha}" required="true" requiredMessage="Senha obrigatória." maxlength="15"/>
-                <p:commandButton value="Entrar" ajax="false" action="#{indexController.autenticar}"/>
+                <p:commandButton value="Entrar" ajax="false" immediate="true" action="#{indexController.autenticar}"/>
                 <p:messages showIcon="false" closable="true"/>
             </h:panelGrid>
         </h:form>    

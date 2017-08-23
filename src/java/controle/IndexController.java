@@ -20,19 +20,19 @@ public class IndexController implements Serializable{
     }
     
     public String autenticar(){
-        UsuarioDao ud = new UsuarioDao();
-        Usuario temp;
-        temp = ud.autenticar(getUsr());
-        if (temp == null){
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha inválidos.", null));
-            return null;  //fica na página
-        }  
-        //seta usuario na Sessao
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext ectx = context.getExternalContext();
-        HttpSession session = (HttpSession) ectx.getSession(true);
-        session.setAttribute("usuarioLogado", getUsr());        
+//        UsuarioDao ud = new UsuarioDao();
+//        Usuario temp;
+//        temp = ud.autenticar(getUsr());
+//        if (temp == null){
+//            FacesContext context = FacesContext.getCurrentInstance();
+//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha inválidos.", null));
+//            return null;  //fica na página
+//        }  
+//        //seta usuario na Sessao
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        ExternalContext ectx = context.getExternalContext();
+//        HttpSession session = (HttpSession) ectx.getSession(true);
+//        session.setAttribute("usuarioLogado", getUsr());        
         return "menu?faces-redirect=true";    // vai para o menu
     }
 

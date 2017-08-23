@@ -1,14 +1,16 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.Especie;
 import modelo.Genero;
 import util.JpaUtil;
 
-public class EspecieDao {
+public class EspecieDao implements Serializable{
      public Especie buscarPorNome(String nome){
         Especie temp;
         EntityManager manager = JpaUtil.getEntityManager();
@@ -20,14 +22,17 @@ public class EspecieDao {
     }
     
     
-    public boolean inserir(Especie esp){
+    public Integer inserir(Especie esp){
         EntityManager manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 
         tx.begin();
         manager.persist(esp);
         tx.commit();
+        Query query = manager.createNativeQuery("SELECT last_value FROM especie_codigo_seq");
+        Long l = (Long) query.getSingleResult();
+        Integer codigoInsInteger = l.intValue();
         manager.close();
-        return true;
+        return codigoInsInteger;
     } 
     
     public List<Especie> listarEspecie(){
