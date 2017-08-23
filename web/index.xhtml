@@ -6,18 +6,53 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title></title>
+        <h:outputStylesheet library="css" name="base.css"/>
     </h:head>
     <h:body>
-        <h:form id="formLogin">
-            <h:panelGrid columns="2">
-                <p:outputLabel value="Usuário: "/>
-                <p:inputText id="campoLogin" size="14" value="#{indexController.usr.login}" required="true" requiredMessage="Nome obrigatório." maxlength="15"/>
-                <p:outputLabel value="Senha: "/>
-                <p:password id="campoSenha" size="14" value="#{indexController.usr.senha}" required="true" requiredMessage="Senha obrigatória." maxlength="15"/>
-                <p:commandButton value="Entrar" ajax="false" immediate="true" action="#{indexController.autenticar}"/>
-                <p:messages showIcon="false" closable="true"/>
+        <p:panel styleClass="cabecalho" >
+            <h:panelGrid columns="2" style="width: 100%;   text-align: center;">
+                <h:outputText style="font-size: 24px;" value="Aqui vai o título"/>                
             </h:panelGrid>
-        </h:form>    
+        </p:panel>
+        <p/>
+        <p:outputPanel styleClass="painelLogin" style="text-align: right">
+            <h:form id="cabecalho" >
+                <p:commandLink styleClass="botaoLink" value="Fazer login" 
+                               onclick="PF('dlgLogin').show()"    />
+            </h:form>
+        </p:outputPanel>
+        <p/>
+        <p:separator />
+        <p/>
+
+
+
+        <p:dialog id="dlgLogin" widgetVar="dlgLogin" modal="true" header="Acesso ao sistema"  >   
+            <h:form id="formLogin">  
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Usuário: "/>
+                    <p:inputText id="campoLogin" size="14" value="#{indexController.usr.login}" 
+                                 required="true" requiredMessage="Nome obrigatório" >
+                        <p:ajax listener="#{indexBean.converter()}" update="campoLogin" />
+                    </p:inputText>                        
+                    <h:outputLabel value="Senha: "/>
+                    <p:password  feedback="false" size="14" value="#{indexController.usr.senha}"
+                                 required="true" requiredMessage="Senha obrigatória" />
+                </h:panelGrid>
+                <p/>
+                <p:outputPanel style="width: 100%; text-align:center" >
+                    <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
+                                     immediate="true" action="#{indexController.autenticar}" styleClass="ui-state-hover"/> 
+                </p:outputPanel>
+                <p:outputPanel style="width: 100%; text-align:center" >
+                    <p:messages showIcon="false" closable="true" />
+                </p:outputPanel>  
+            </h:form >
+        </p:dialog>
+
+
+
+
     </h:body>
 </html>
 
