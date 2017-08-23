@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -9,7 +10,7 @@ import modelo.Genero;
 import modelo.Ordem;
 import util.JpaUtil;
 
-public class GeneroDao {
+public class GeneroDao implements Serializable{
         public Genero buscarPorNome(String nome){
         Genero temp;
         EntityManager manager = JpaUtil.getEntityManager();

@@ -1,20 +1,22 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
     <h:head>
         <title></title>
         <h:outputStylesheet library="css" name="base.css"/>
     </h:head>
     <h:body>
         <p:panel styleClass="cabecalho" >
-            <h:panelGrid columns="2" style="width: 100%;   text-align: center;">
-                <h:outputText style="font-size: 24px;" value="Aqui vai o título"/>                
+            <h:panelGrid columns="2" style="width: 100%; text-align: center;">
+                <h:outputText style="font-size: 24px;" value="Museu Entomológico Virtual"/>                
             </h:panelGrid>
         </p:panel>
         <p/>
+        
         <p:outputPanel styleClass="painelLogin" style="text-align: right">
             <h:form id="cabecalho" >
                 <p:commandLink styleClass="botaoLink" value="Fazer login" 
@@ -22,12 +24,31 @@
             </h:form>
         </p:outputPanel>
         <p/>
+        
         <p:separator />
         <p/>
 
+        <h:form>            
+            <h:panelGrid columns="2">
+                <p:selectOneMenu>
+                    <p:outputLabel value="Ordem"/>
+                    <p:selectOneMenu id="comboOrdem" value="#{indexController.ordemSelecionada}" 
+                                     converter="ordemConverter" 
+                                     required="true" requiredMessage="Escolha um item.">
+                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                        <f:selectItems value="#{indexController.ordens}" 
+                                       var="item" 
+                                       itemValue="#{item}"                     
+                                       itemLabel="#{item.nome}"/>  
+                    </p:selectOneMenu>
+                </p:selectOneMenu>
+                <p:outputPanel>
+                    <p:outputLabel value="#{indexController.ordemSelecionada.descricao}"/>
+                </p:outputPanel>
+            </h:panelGrid>
+        </h:form>
 
-
-        <p:dialog id="dlgLogin" widgetVar="dlgLogin" modal="true" header="Acesso ao sistema"  >   
+        <p:dialog id="dlgLogin" widgetVar="dlgLogin" modal="true" header="Acesso ao sistema">   
             <h:form id="formLogin">  
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Usuário: "/>
@@ -49,9 +70,6 @@
                 </p:outputPanel>  
             </h:form >
         </p:dialog>
-
-
-
 
     </h:body>
 </html>

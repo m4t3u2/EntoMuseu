@@ -1,25 +1,38 @@
 package controle;
 
+import dao.OrdemDao;
 import dao.UsuarioDao;
 import java.io.Serializable;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import modelo.Ordem;
 import modelo.Usuario;
 
-@ManagedBean (name="indexController")
+@ManagedBean(name = "indexController")
 @ViewScoped
-public class IndexController implements Serializable{
+public class IndexController implements Serializable {
+
     private Usuario usr;
-    
-    public IndexController(){
+
+    private List<Ordem> ordens;
+    private OrdemDao ordemDao;
+    private Ordem ordemSelecionada;
+
+    public IndexController() {
         usr = new Usuario();
+
+        ordemDao = new OrdemDao();
+        ordens = ordemDao.listarOrdem();
+        ordemSelecionada = new Ordem();
+        System.out.println(ordens.size());
     }
-    
-    public String autenticar(){
+
+    public String autenticar() {
 //        UsuarioDao ud = new UsuarioDao();
 //        Usuario temp;
 //        temp = ud.autenticar(getUsr());
@@ -42,6 +55,30 @@ public class IndexController implements Serializable{
 
     public void setUsr(Usuario usr) {
         this.usr = usr;
+    }
+
+    public List<Ordem> getOrdens() {
+        return ordens;
+    }
+
+    public void setOrdens(List<Ordem> ordens) {
+        this.ordens = ordens;
+    }
+
+    public OrdemDao getOrdemDao() {
+        return ordemDao;
+    }
+
+    public void setOrdemDao(OrdemDao ordemDao) {
+        this.ordemDao = ordemDao;
+    }
+
+    public Ordem getOrdemSelecionada() {
+        return ordemSelecionada;
+    }
+
+    public void setOrdemSelecionada(Ordem ordemSelecionada) {
+        this.ordemSelecionada = ordemSelecionada;
     }
     
 }

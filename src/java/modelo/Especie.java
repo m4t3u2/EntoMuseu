@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
     @NamedQuery(name="Especie.buscarPorGenero", query ="SELECT e FROM Especie e WHERE e.genero.codigo = :codigo ORDER BY e.nome"),
     @NamedQuery(name="Especie.listarPorNome", query ="SELECT e FROM Especie e WHERE e.nome = :nome")
 })
-public class Especie {
+public class Especie implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
