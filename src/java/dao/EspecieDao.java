@@ -43,7 +43,7 @@ public class EspecieDao implements Serializable{
         return lista;
     }
     
-    public List<Especie> listarPorOrdem(Genero genero){
+    public List<Especie> listarPorGenero(Genero genero){
         EntityManager manager = JpaUtil.getEntityManager();
         TypedQuery<Especie> query = manager.createNamedQuery("Especie.buscarPorGenero", Especie.class);
         query.setParameter("codigo", genero.getCodigo());

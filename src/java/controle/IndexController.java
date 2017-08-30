@@ -1,15 +1,24 @@
 package controle;
 
+import dao.EspecieDao;
+import dao.FamiliaDao;
+import dao.GeneroDao;
 import dao.OrdemDao;
 import dao.UsuarioDao;
+import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import modelo.Especie;
+import modelo.Familia;
+import modelo.Genero;
 import modelo.Ordem;
 import modelo.Usuario;
 
@@ -23,6 +32,20 @@ public class IndexController implements Serializable {
     private OrdemDao ordemDao;
     private Ordem ordemSelecionada;
 
+    private List<Familia> familias;
+    private FamiliaDao familiaDao;
+    private Familia familiaSelecionada;
+
+    private List<Genero> generos;
+    private GeneroDao generoDao;
+    private Genero generoSelecionado;
+    
+    private List<Especie> especies;
+    private EspecieDao especieDao;
+    private Especie especieSelecionada;
+    
+    private String caminho;
+
     public IndexController() {
         usr = new Usuario();
 
@@ -30,6 +53,20 @@ public class IndexController implements Serializable {
         ordens = ordemDao.listarOrdem();
         ordemSelecionada = new Ordem();
         System.out.println(ordens.size());
+
+        familiaDao = new FamiliaDao();
+        familias = new ArrayList<>();
+        familiaSelecionada = new Familia();
+
+        generoDao = new GeneroDao();
+        generos = new ArrayList<>();
+        generoSelecionado = new Genero();
+        
+        especieDao = new EspecieDao();
+        especies = new ArrayList<>();
+        especieSelecionada = new Especie();
+        
+        caminho = "";
     }
 
     public String autenticar() {
@@ -49,6 +86,26 @@ public class IndexController implements Serializable {
         return "menu?faces-redirect=true";    // vai para o menu
     }
 
+    public void atualizarFamilias() {
+        familias = familiaDao.listarPorOrdem(ordemSelecionada);
+    }
+
+    public void atualizarGeneros() {
+        generos = generoDao.listarPorFamilia(familiaSelecionada);
+    }
+
+    public void atualizarEspecies(){
+        especies = especieDao.listarPorGenero(generoSelecionado);
+    }
+    
+    public void atualizarCaminho(){
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String cam = servletContext.getRealPath("");
+        caminho = cam + "resources" + File.separator + "pacotes"+ File.separator + especieSelecionada.getCodigo() + File.separator + "interactive_3d.html";
+        caminho = caminho.substring(0,1).toUpperCase().concat(caminho.substring(1));
+        System.out.println("Caminho: " + caminho);
+    }
+    
     public Usuario getUsr() {
         return usr;
     }
@@ -80,5 +137,87 @@ public class IndexController implements Serializable {
     public void setOrdemSelecionada(Ordem ordemSelecionada) {
         this.ordemSelecionada = ordemSelecionada;
     }
+
+    public List<Familia> getFamilias() {
+        return familias;
+    }
+
+    public void setFamilias(List<Familia> familias) {
+        this.familias = familias;
+    }
+
+    public FamiliaDao getFamiliaDao() {
+        return familiaDao;
+    }
+
+    public void setFamiliaDao(FamiliaDao familiaDao) {
+        this.familiaDao = familiaDao;
+    }
+
+    public Familia getFamiliaSelecionada() {
+        return familiaSelecionada;
+    }
+
+    public void setFamiliaSelecionada(Familia familiaSelecionada) {
+        this.familiaSelecionada = familiaSelecionada;
+    }
+
+    public List<Genero> getGeneros() {
+        return generos;
+    }
+
+    public void setGeneros(List<Genero> generos) {
+        this.generos = generos;
+    }
+
+    public GeneroDao getGeneroDao() {
+        return generoDao;
+    }
+
+    public void setGeneroDao(GeneroDao generoDao) {
+        this.generoDao = generoDao;
+    }
+
+    public Genero getGeneroSelecionado() {
+        return generoSelecionado;
+    }
+
+    public void setGeneroSelecionado(Genero generoSelecionado) {
+        this.generoSelecionado = generoSelecionado;
+    }
+
+    public List<Especie> getEspecies() {
+        return especies;
+    }
+
+    public void setEspecies(List<Especie> especies) {
+        this.especies = especies;
+    }
+
+    public EspecieDao getEspecieDao() {
+        return especieDao;
+    }
+
+    public void setEspecieDao(EspecieDao especieDao) {
+        this.especieDao = especieDao;
+    }
+
+    public Especie getEspecieSelecionada() {
+        return especieSelecionada;
+    }
+
+    public void setEspecieSelecionada(Especie especieSelecionada) {
+        this.especieSelecionada = especieSelecionada;
+    }
+
+    public String getCaminho() {
+        return caminho;
+    }
+
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
+    }
     
+    
+
 }

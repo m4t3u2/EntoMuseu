@@ -11,13 +11,17 @@ import modelo.Familia;
 import modelo.Genero;
 import modelo.Ordem;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import org.apache.commons.io.FileUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -90,7 +94,7 @@ public class InsetoControle implements Serializable {
                 + File.separator + fileName;
 
         if (writeToFile(newFileName, event.getFile().getContents())) {
-            System.out.println("Arquivo gravado com sucesso.");
+            System.out.println("Sucesso no Upload.");
         }
     }
 
@@ -100,6 +104,7 @@ public class InsetoControle implements Serializable {
             diretorio.mkdir();
             diretorio = new File(caminho + File.separator + ultimoInserido + File.separator + "images");
             diretorio.mkdir();
+            copiarBase(ultimoInserido);
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -118,6 +123,20 @@ public class InsetoControle implements Serializable {
             e.printStackTrace();
         }
         return ok;
+    }
+
+    public void copiarBase(Integer ultimoInserido) {
+        try {
+            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+            String caminho = servletContext.getRealPath("") + File.separator + "resources" + File.separator;
+            File origem = new File (caminho + "modelo");
+            File destino = new File (caminho + "pacotes" + File.separator + ultimoInserido);
+            FileUtils.copyDirectory(origem, destino);
+            System.out.println("Base copiada.");
+        } catch (Exception e) {
+            System.out.println("Falha ao mover base.");
+            System.out.println("Erro: " + e);
+        }
     }
 
     public List<Ordem> getOrdens() {

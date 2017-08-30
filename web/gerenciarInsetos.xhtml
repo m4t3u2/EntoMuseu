@@ -8,6 +8,7 @@
     <ui:composition template="template.xhtml">
         <ui:define name="body">
             <h:form>
+                <p>Cadastro</p>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Ordem"/>
                     <p:selectOneMenu id="comboOrdem" value="#{insetoControle.ordemSelecionada}" 
@@ -52,7 +53,6 @@
                     </p:selectOneMenu>
                 </h:panelGrid>
 
-
                 <p:outputLabel value="Espécie "/>
                 <p:inputText value="#{insetoControle.novaEspecie.nome}"/>
                 <p/>
@@ -65,6 +65,8 @@
             </h:form>   
 
             <h:form>
+                <p/>
+                <p>Selecione as 38 imagens</p>
                 <p:fileUpload fileUploadListener="#{insetoControle.uploadArquivo}" 
                               mode="advanced" dragDropSupport="false"
                               update="messages" 

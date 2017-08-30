@@ -4,7 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
+
     <h:head>
         <title></title>
         <h:outputStylesheet library="css" name="base.css"/>
@@ -16,7 +16,7 @@
             </h:panelGrid>
         </p:panel>
         <p/>
-        
+
         <p:outputPanel styleClass="painelLogin" style="text-align: right">
             <h:form id="cabecalho" >
                 <p:commandLink styleClass="botaoLink" value="Fazer login" 
@@ -24,13 +24,14 @@
             </h:form>
         </p:outputPanel>
         <p/>
-        
+
         <p:separator />
         <p/>
 
-        <h:form>            
-            <h:panelGrid columns="2">
-                <p:selectOneMenu>
+        <h:form>     
+            <p:panelGrid columns="5" style="width: 20%;">
+
+                <h:panelGrid columns="1" >
                     <p:outputLabel value="Ordem"/>
                     <p:selectOneMenu id="comboOrdem" value="#{indexController.ordemSelecionada}" 
                                      converter="ordemConverter" 
@@ -40,12 +41,70 @@
                                        var="item" 
                                        itemValue="#{item}"                     
                                        itemLabel="#{item.nome}"/>  
+                        <p:ajax event="change" process="@this" update="ordemDescri"/>
+                        <p:ajax event="change" listener="#{indexController.atualizarFamilias()}" process="@this" update="comboFamilia"/>
+
                     </p:selectOneMenu>
-                </p:selectOneMenu>
-                <p:outputPanel>
-                    <p:outputLabel value="#{indexController.ordemSelecionada.descricao}"/>
-                </p:outputPanel>
-            </h:panelGrid>
+                    <p:outputLabel id="ordemDescri" value="#{indexController.ordemSelecionada.descricao}"/>
+                </h:panelGrid>
+
+
+                <h:panelGrid columns="1">
+                    <p:outputLabel value="Família"/>
+                    <p:selectOneMenu id="comboFamilia" value="#{indexController.familiaSelecionada}" 
+                                     converter="familiaConverter" 
+                                     required="true" requiredMessage="Escolha um item.">
+                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                        <f:selectItems value="#{indexController.familias}" 
+                                       var="item" 
+                                       itemValue="#{item}"                     
+                                       itemLabel="#{item.nome}"/>
+                        <p:ajax event="change" process="@this" update="familiaDescri"/>
+                        <p:ajax event="change" listener="#{indexController.atualizarGeneros()}" process="@this" update="comboGenero"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel id="familiaDescri" value="#{indexController.familiaSelecionada.descricao}"/>
+                </h:panelGrid>
+
+
+                <h:panelGrid columns="1">
+                    <p:outputLabel value="Gênero"/>
+                    <p:selectOneMenu id="comboGenero" value="#{indexController.generoSelecionado}" 
+                                     converter="generoConverter" 
+                                     required="true" requiredMessage="Escolha um item.">
+                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                        <f:selectItems value="#{indexController.generos}" 
+                                       var="item" 
+                                       itemValue="#{item}"                     
+                                       itemLabel="#{item.nome}"/> 
+                        <p:ajax event="change" process="@this" update="generoDescri"/>
+                        <p:ajax event="change" listener="#{indexController.atualizarEspecies()}" process="@this" update="comboEspecie"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel id="generoDescri" value="#{indexController.generoSelecionado.descricao}"/>
+                </h:panelGrid>
+
+
+                <h:panelGrid columns="1" >
+                    <p:outputLabel value="Espécie"/>
+                    <p:selectOneMenu id="comboEspecie" value="#{indexController.especieSelecionada}" 
+                                     converter="especieConverter" 
+                                     required="true" requiredMessage="Escolha um item.">
+                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                        <f:selectItems value="#{indexController.especies}" 
+                                       var="item" 
+                                       itemValue="#{item}"                     
+                                       itemLabel="#{item.nome}"/>  
+                        <p:ajax event="change" process="@this" update="especieDescri, linkAbrir" listener="#{indexController.atualizarCaminho}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel id="especieDescri" value="#{indexController.especieSelecionada.descricao}"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="1" >
+                    <h:outputLink id="linkAbrir" value="#{indexController.caminho}" target="_blank" > 
+                        Visualizar Inseto                        
+                    </h:outputLink>
+                </h:panelGrid>
+
+            </p:panelGrid>
         </h:form>
 
         <p:dialog id="dlgLogin" widgetVar="dlgLogin" modal="true" header="Acesso ao sistema">   
