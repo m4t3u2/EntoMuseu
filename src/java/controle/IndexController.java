@@ -4,18 +4,14 @@ import dao.EspecieDao;
 import dao.FamiliaDao;
 import dao.GeneroDao;
 import dao.OrdemDao;
-import dao.UsuarioDao;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import modelo.Especie;
 import modelo.Familia;
 import modelo.Genero;
@@ -39,11 +35,11 @@ public class IndexController implements Serializable {
     private List<Genero> generos;
     private GeneroDao generoDao;
     private Genero generoSelecionado;
-    
+
     private List<Especie> especies;
     private EspecieDao especieDao;
     private Especie especieSelecionada;
-    
+
     private String caminho;
 
     public IndexController() {
@@ -61,11 +57,11 @@ public class IndexController implements Serializable {
         generoDao = new GeneroDao();
         generos = new ArrayList<>();
         generoSelecionado = new Genero();
-        
+
         especieDao = new EspecieDao();
         especies = new ArrayList<>();
         especieSelecionada = new Especie();
-        
+
         caminho = "";
     }
 
@@ -94,18 +90,17 @@ public class IndexController implements Serializable {
         generos = generoDao.listarPorFamilia(familiaSelecionada);
     }
 
-    public void atualizarEspecies(){
+    public void atualizarEspecies() {
         especies = especieDao.listarPorGenero(generoSelecionado);
     }
-    
-    public void atualizarCaminho(){
+
+    public void atualizarCaminho() {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String cam = servletContext.getRealPath("");
-        caminho = cam + "resources" + File.separator + "pacotes"+ File.separator + especieSelecionada.getCodigo() + File.separator + "interactive_3d.html";
-        caminho = caminho.substring(0,1).toUpperCase().concat(caminho.substring(1));
+        caminho = cam + "resources" + File.separator + "pacotes" + File.separator + especieSelecionada.getCodigo() + File.separator + "interactive_3d.html";
         System.out.println("Caminho: " + caminho);
     }
-    
+
     public Usuario getUsr() {
         return usr;
     }
@@ -209,7 +204,7 @@ public class IndexController implements Serializable {
     public void setEspecieSelecionada(Especie especieSelecionada) {
         this.especieSelecionada = especieSelecionada;
     }
-
+    
     public String getCaminho() {
         return caminho;
     }
@@ -217,7 +212,5 @@ public class IndexController implements Serializable {
     public void setCaminho(String caminho) {
         this.caminho = caminho;
     }
-    
-    
 
 }
