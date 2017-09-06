@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -79,17 +80,23 @@ public class InsetoControle implements Serializable {
         novaEspecie.setGenero(generoSelecionado);
         ultimoInserido = especieDao.inserir(novaEspecie);
         novaEspecie = new Especie();
+        generoSelecionado = new Genero();
+        familiaSelecionada = new Familia();
+        ordemSelecionada = new Ordem();
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inseto Cadastrado. Agora envie as imagens.", null));
     }
 
-    public void uploadArquivo(FileUploadEvent event) {
+    public void uploadArquivoHorizontal(FileUploadEvent event) {
         String fileName = event.getFile().getFileName();
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String caminho = servletContext.getRealPath("") + File.separator + "resources"
                 + File.separator + "pacotes" + File.separator;
-        criarPasta(caminho, ultimoInserido);
+        criarPasta(caminho, ultimoInserido, "horizontal");
         String newFileName = servletContext.getRealPath("") + File.separator + "resources"
                 + File.separator + "pacotes"
                 + File.separator + ultimoInserido
+                + File.separator + "horizontal"
                 + File.separator + "images"
                 + File.separator + fileName;
 
@@ -98,15 +105,39 @@ public class InsetoControle implements Serializable {
         }
     }
 
-    public void criarPasta(String caminho, Integer ultimoInserido) {
+    public void uploadArquivoVertical(FileUploadEvent event) {
+        String fileName = event.getFile().getFileName();
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String caminho = servletContext.getRealPath("") + File.separator + "resources"
+                + File.separator + "pacotes" + File.separator;
+        criarPasta(caminho, ultimoInserido, "vertical");
+        String newFileName = servletContext.getRealPath("") + File.separator + "resources"
+                + File.separator + "pacotes"
+                + File.separator + ultimoInserido
+                + File.separator + "vertical"
+                + File.separator + "images"
+                + File.separator + fileName;
+
+        if (writeToFile(newFileName, event.getFile().getContents())) {
+            System.out.println("Sucesso no Upload.");
+        }
+    }
+
+    public void criarPasta(String caminho, Integer ultimoInserido, String sentido) {
         try {
             File diretorio = new File(caminho + File.separator + ultimoInserido);
             diretorio.mkdir();
-            diretorio = new File(caminho + File.separator + ultimoInserido + File.separator + "images");
+                      
+            diretorio = new File(caminho + File.separator + ultimoInserido + File.separator + sentido);
             diretorio.mkdir();
+                        
+            diretorio = new File(caminho + File.separator + ultimoInserido + File.separator + sentido 
+                    + File.separator + "images");
+            diretorio.mkdir();
+                        
             copiarBase(ultimoInserido);
         } catch (Exception ex) {
-            System.out.println(ex);
+            System.out.println("Erro ao criar pasta:" + ex);
         }
     }
 
@@ -129,9 +160,14 @@ public class InsetoControle implements Serializable {
         try {
             ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
             String caminho = servletContext.getRealPath("") + File.separator + "resources" + File.separator;
-            File origem = new File (caminho + "modelo");
-            File destino = new File (caminho + "pacotes" + File.separator + ultimoInserido);
-            FileUtils.copyDirectory(origem, destino);
+            File origem = new File(caminho + "modelo" + File.separator + "jquery");
+            File origem2 = new File(caminho + "modelo" + File.separator + "index");
+            File destino2 = new File(caminho + "pacotes" + File.separator + ultimoInserido);
+            File destinoH = new File(caminho + "pacotes" + File.separator + ultimoInserido + File.separator + "horizontal");
+            File destinoV = new File(caminho + "pacotes" + File.separator + ultimoInserido + File.separator + "vertical");
+            FileUtils.copyDirectory(origem, destinoH);
+            FileUtils.copyDirectory(origem, destinoV);
+            FileUtils.copyDirectory(origem2, destino2);
             System.out.println("Base copiada.");
         } catch (Exception e) {
             System.out.println("Falha ao mover base.");

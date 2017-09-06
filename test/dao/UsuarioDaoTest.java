@@ -41,7 +41,7 @@ public class UsuarioDaoTest {
     @Test
     public void autenticar(){
         Usuario u = new Usuario();
-        u.setSenha("123");
+        u.setSenha("teste");
         u.setLogin("teste");
         u = new UsuarioDao().autenticar(u);
         assertNotNull(u);

@@ -23,9 +23,9 @@ body{
     /*background-color: #F8F8FF;*/
     font-size: 12px;
     margin-top: -1px;
-    /*background-repeat: no-repeat;*/
+    background-repeat: no-repeat;
     background-attachment: fixed;
-    /*background-position: center;*/
+    background-position: center;
     background-size: cover;
 }
 

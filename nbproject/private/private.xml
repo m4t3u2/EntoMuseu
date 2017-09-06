@@ -4,8 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Mateus/Documents/NetBeansProjects/entomuseu/web/index.xhtml</file>
-            <file>file:/C:/Users/Mateus/Documents/NetBeansProjects/entomuseu/src/java/dao/GeneroDao.java</file>
-            <file>file:/C:/Users/Mateus/Documents/NetBeansProjects/entomuseu/src/java/util/EspecieConverter.java</file>
+            <file>file:/C:/Users/Mateus/Documents/NetBeansProjects/entomuseu/web/template.xhtml</file>
+            <file>file:/C:/Users/Mateus/Documents/NetBeansProjects/entomuseu/src/java/controle/IndexController.java</file>
         </group>
     </open-files>
 </project-private>

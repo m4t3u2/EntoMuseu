@@ -4,19 +4,29 @@ import dao.EspecieDao;
 import dao.FamiliaDao;
 import dao.GeneroDao;
 import dao.OrdemDao;
+import dao.UsuarioDao;
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.Especie;
 import modelo.Familia;
 import modelo.Genero;
 import modelo.Ordem;
 import modelo.Usuario;
+import util.Sessao;
 
 @ManagedBean(name = "indexController")
 @ViewScoped
@@ -42,6 +52,8 @@ public class IndexController implements Serializable {
 
     private String caminho;
 
+    private boolean mostraPopUp;
+
     public IndexController() {
         usr = new Usuario();
 
@@ -63,23 +75,22 @@ public class IndexController implements Serializable {
         especieSelecionada = new Especie();
 
         caminho = "";
+
+        mostraPopUp = false;
     }
 
     public String autenticar() {
-//        UsuarioDao ud = new UsuarioDao();
-//        Usuario temp;
-//        temp = ud.autenticar(getUsr());
-//        if (temp == null){
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha inválidos.", null));
-//            return null;  //fica na página
-//        }  
-//        //seta usuario na Sessao
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        ExternalContext ectx = context.getExternalContext();
-//        HttpSession session = (HttpSession) ectx.getSession(true);
-//        session.setAttribute("usuarioLogado", getUsr());        
-        return "menu?faces-redirect=true";    // vai para o menu
+        UsuarioDao ud = new UsuarioDao();
+        Usuario temp;
+        temp = ud.autenticar(getUsr());
+        if (temp == null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha inválidos.", null));
+            return null;  //fica na página
+        }
+        Sessao.setUsuario(usr);
+        this.fecharPopUp();
+        return "menu?faces-redirect=true";
     }
 
     public void atualizarFamilias() {
@@ -97,8 +108,41 @@ public class IndexController implements Serializable {
     public void atualizarCaminho() {
 //        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 //        String cam = servletContext.getRealPath("");
-        caminho = File.separator + "resources" + File.separator + "pacotes" + File.separator + especieSelecionada.getCodigo() + File.separator + "interactive_3d.html";
+        caminho = File.separator + "resources" + File.separator + "pacotes" + File.separator + especieSelecionada.getCodigo()
+                + File.separator + "posicao.html";
         System.out.println("Caminho: " + caminho);
+    }
+
+    public void abrirImagem(){
+
+        try {
+            HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String uri = req.getRequestURI();
+            res.getWriter().println("<script>window.open('" + caminho + "','_blank', 'location=yes,height=600,width=800,scrollbars=yes,status=yes'); window.parent.location.href= '" + uri + "';</script>");
+        } catch (IOException ex) {
+            System.out.println("Erro AbrirImagem: " + ex);
+        }
+        FacesContext fc = FacesContext.getCurrentInstance();
+        fc.renderResponse();
+        fc.responseComplete();
+        
+    }
+
+    public void abrirPopup() {
+        mostraPopUp = true;
+    }
+
+    public void fecharPopUp() {
+        mostraPopUp = false;
+    }
+
+    public boolean isMostraPopUp() {
+        return mostraPopUp;
+    }
+
+    public void setMostraPopUp(boolean mostraPopUp) {
+        this.mostraPopUp = mostraPopUp;
     }
 
     public Usuario getUsr() {
@@ -204,7 +248,7 @@ public class IndexController implements Serializable {
     public void setEspecieSelecionada(Especie especieSelecionada) {
         this.especieSelecionada = especieSelecionada;
     }
-    
+
     public String getCaminho() {
         return caminho;
     }

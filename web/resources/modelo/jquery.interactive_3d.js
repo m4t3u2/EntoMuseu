@@ -1,16 +1,3 @@
-/* ===========================================================
- * jquery.interactive_3d.js v1.1
- * ===========================================================
- * Copyright 2013 Pete Rojwongsuriya.
- * http://www.thepetedesign.com
- *
- * Create a 3D interactive object using images as frames
- * with one js call
- *
- * https://github.com/peachananr/interactive_3d
- *
- * ========================================================== */
-
 !function($){
   
   var defaults = {
@@ -225,4 +212,3 @@
     
   }
 }(window.jQuery);
-

@@ -16,15 +16,13 @@
         <p:outputPanel styleClass="painelLogin" style="text-align: right">
             <h:form id="cabecalho" >
                 <p:commandLink styleClass="botaoLink" value="Fazer login" 
-                               onclick="PF('dlgLogin').show()"    />
+                               action="#{indexController.abrirPopup()}" update=":formLogin" />
             </h:form>
         </p:outputPanel>
 
-        <h:form>     
+        <h:form id="fPrincipal">     
 
-            <p:fieldset >
-                <p:outputLabel
-                    value="ordem"/>
+            <p:fieldset legend="Ordem">
                 <p/>
                 <p:selectOneMenu id="comboOrdem" value="#{indexController.ordemSelecionada}" 
                                  converter="ordemConverter" 
@@ -38,7 +36,7 @@
                             update="comboFamilia, descriOrdem"/>
 
                 </p:selectOneMenu>
-                
+                <p/>
                 <p:outputLabel id="descriOrdem" value="#{indexController.ordemSelecionada.descricao}"/>
             </p:fieldset>
 
@@ -91,24 +89,23 @@
                 </p:selectOneMenu>
                 <p/>
                 <p:outputLabel id="descriEspecie" value="#{indexController.especieSelecionada.descricao}"/>
-            </p:fieldset>
 
-            <h:panelGrid columns="1" >
-                <h:outputLink styleClass="deixarTransparente" id="linkAbrir" value="#{request.contextPath}#{indexController.caminho}" target="_blank" > 
-                    Visualizar Inseto                        
-                </h:outputLink>
-            </h:panelGrid>
+                <p/>
+                <p:commandLink id="linkAbrir" value="teste" action="#{indexController.abrirImagem()}"> 
+                    teste
+                </p:commandLink>
+
+            </p:fieldset>
 
         </h:form>
 
-
-        <p:dialog id="dlgLogin" widgetVar="dlgLogin" modal="true" header="Acesso ao sistema" resizable="false">   
-            <h:form id="formLogin">  
+        <h:form id="formLogin">  
+            <p:dialog id="dlgLogin" widgetVar="dlgLogin" modal="true" header="Acesso ao sistema" 
+                      resizable="false" visible="#{indexController.mostraPopUp}">   
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Usuário: "/>
                     <p:inputText id="campoLogin" size="14" value="#{indexController.usr.login}" 
                                  required="true" requiredMessage="Nome obrigatório" >
-                        <p:ajax listener="#{indexBean.converter()}" update="campoLogin" />
                     </p:inputText>                        
                     <h:outputLabel value="Senha: "/>
                     <p:password  feedback="false" size="14" value="#{indexController.usr.senha}"
@@ -117,13 +114,13 @@
                 <p/>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     immediate="true" action="#{indexController.autenticar}" styleClass="ui-state-hover"/> 
+                                     action="#{indexController.autenticar}" styleClass="ui-state-hover"/> 
                 </p:outputPanel>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:messages showIcon="false" closable="true" />
                 </p:outputPanel>  
-            </h:form >
-        </p:dialog>
+            </p:dialog>
+        </h:form>
 
     </h:body>
 </html>

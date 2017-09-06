@@ -13,7 +13,11 @@
     <h:body>
         <ui:insert name="cabecalho"/>
         <p:outputLabel value="Museu Entomológico Virtual"/>
-        
+        <h:form>
+            <p:commandLink action="#{menuController.deslogar()}">
+                <h:outputText value="Sair"/>
+            </p:commandLink>
+        </h:form>
         <p/>
         <p:separator/>
         <ui:insert name="body"/>

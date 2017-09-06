@@ -7,78 +7,92 @@
 
     <ui:composition template="template.xhtml">
         <ui:define name="body">
-            <h:form>
-                <p>Cadastro</p>
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Ordem"/>
-                    <p:selectOneMenu id="comboOrdem" value="#{insetoControle.ordemSelecionada}" 
-                                     converter="ordemConverter" 
-                                     required="true" requiredMessage="Escolha um item.">
-                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
-                        <f:selectItems value="#{insetoControle.ordens}" 
-                                       var="item" 
-                                       itemValue="#{item}"                     
-                                       itemLabel="#{item.nome}"/>  
-                        <p:ajax event="change" listener="#{insetoControle.atualizarFamilias()}" process="@this" update="comboFamilia"/>
-                    </p:selectOneMenu>
-                </h:panelGrid>
+            <p:fieldset legend="Cadastro">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Ordem"/>
+                        <p:selectOneMenu id="comboOrdem" value="#{insetoControle.ordemSelecionada}" 
+                                         converter="ordemConverter" 
+                                         required="true" requiredMessage="Escolha uma Ordem.">
+                            <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                            <f:selectItems value="#{insetoControle.ordens}" 
+                                           var="item" 
+                                           itemValue="#{item}"                     
+                                           itemLabel="#{item.nome}"/>  
+                            <p:ajax event="change" listener="#{insetoControle.atualizarFamilias()}" process="@this" update="comboFamilia"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
 
 
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Família"/>
-                    <p:selectOneMenu id="comboFamilia" value="#{insetoControle.familiaSelecionada}" 
-                                     converter="familiaConverter" 
-                                     required="true" requiredMessage="Escolha um item.">
-                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
-                        <f:selectItems value="#{insetoControle.familias}" 
-                                       var="item" 
-                                       itemValue="#{item}"                     
-                                       itemLabel="#{item.nome}"/>  
-                        <p:ajax event="change" listener="#{insetoControle.atualizarGeneros()}" process="@this" update="comboGenero"/>
-                    </p:selectOneMenu>
-                </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Família"/>
+                        <p:selectOneMenu id="comboFamilia" value="#{insetoControle.familiaSelecionada}" 
+                                         converter="familiaConverter" 
+                                         required="true" requiredMessage="Escolha uma Família.">
+                            <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                            <f:selectItems value="#{insetoControle.familias}" 
+                                           var="item" 
+                                           itemValue="#{item}"                     
+                                           itemLabel="#{item.nome}"/>  
+                            <p:ajax event="change" listener="#{insetoControle.atualizarGeneros()}" process="@this" update="comboGenero"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
 
 
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Gênero"/>
-                    <p:selectOneMenu id="comboGenero" value="#{insetoControle.generoSelecionado}" 
-                                     converter="generoConverter" 
-                                     required="true" requiredMessage="Escolha um item.">
-                        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
-                        <f:selectItems value="#{insetoControle.generos}" 
-                                       var="item" 
-                                       itemValue="#{item}"                     
-                                       itemLabel="#{item.nome}"/>  
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Gênero"/>
+                        <p:selectOneMenu id="comboGenero" value="#{insetoControle.generoSelecionado}" 
+                                         converter="generoConverter" 
+                                         required="true" requiredMessage="Escolha um Gênero.">
+                            <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção" noSelectionOption="false"/>
+                            <f:selectItems value="#{insetoControle.generos}" 
+                                           var="item" 
+                                           itemValue="#{item}"                     
+                                           itemLabel="#{item.nome}"/>  
 
-                    </p:selectOneMenu>
-                </h:panelGrid>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
 
-                <p:outputLabel value="Espécie "/>
-                <p:inputText value="#{insetoControle.novaEspecie.nome}"/>
-                <p/>
-                <p:outputLabel value="Descrição "/>
-                <p:inputTextarea value="#{insetoControle.novaEspecie.descricao}"/>
+                    <p:outputLabel value="Espécie "/>
+                    <p:inputText value="#{insetoControle.novaEspecie.nome}"/>
+                    <p/>
+                    <p:outputLabel value="Descrição "/>
+                    <p:inputTextarea value="#{insetoControle.novaEspecie.descricao}"/>
+                    <p/>
+                    <p:commandButton value="Cadastrar" action="#{insetoControle.cadastrar}" update="@form"/>
+                    <p/>
+                    <p:outputPanel>
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" showIcon="false"/>
+                    </p:outputPanel>
+                </h:form>   
+            </p:fieldset>
 
-                <p/>
-                <p:commandButton value="Cadastrar" action="#{insetoControle.cadastrar}"/>
+            <p/>
+            <p:fieldset legend="Horizontal">
+                <h:form>
+                    <p>Obs: Selecione as 38 imagens.</p>
+                    <p:fileUpload fileUploadListener="#{insetoControle.uploadArquivoHorizontal}" 
+                                  mode="advanced" dragDropSupport="false"
+                                  update="messages" 
+                                  multiple="true"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                    <p:growl id="messages" showDetail="true" />
+                </h:form>  
+            </p:fieldset>
 
-                <p:outputPanel>
-                    <p:messages/>
-                </p:outputPanel>              
-
-            </h:form>   
-
-            <h:form>
-                <p/>
-                <p>Selecione as 38 imagens</p>
-                <p:fileUpload fileUploadListener="#{insetoControle.uploadArquivo}" 
-                              mode="advanced" dragDropSupport="false"
-                              update="messages" 
-                              multiple="true"
-                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-                <p:growl id="messages" showDetail="true" />
-            </h:form>  
-
+            <p/>
+            <p:fieldset legend="Vertical">
+                <h:form>
+                    <p>Obs: Selecione as 38 imagens.</p>
+                    <p:fileUpload fileUploadListener="#{insetoControle.uploadArquivoVertical}" 
+                                  mode="advanced" dragDropSupport="false"
+                                  update="messages" 
+                                  multiple="true"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                    <p:growl id="messages" showDetail="true" />
+                </h:form>  
+            </p:fieldset>
+            
         </ui:define>
     </ui:composition>    
 </html>
