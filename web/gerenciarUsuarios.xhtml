@@ -48,11 +48,13 @@
                     <p:outputLabel value="Nome"/>
                     <p:inputText required="true" value="#{usuarioControle.novoUsuario.nome}"/>
                     <p:outputLabel value="Login"/>
-                    <p:inputText value="#{usuarioControle.novoUsuario.login}"/>
+                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.login}"/>
                     <p:outputLabel value="Email"/>
-                    <p:inputText value="#{usuarioControle.novoUsuario.email}"/>
+                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.email}" validatorMessage="E-mail incorreto.">
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                    </p:inputText>
                     <p:outputLabel value="Senha"/>
-                    <p:inputText value="#{usuarioControle.novoUsuario.senha}"/>
+                    <p:inputText required="true" type="password" value="#{usuarioControle.novoUsuario.senha}"/>
                     <p:commandButton value="Ok" onclick="PF('dlgNovoUsuario').hide()" action="#{usuarioControle.incluirUsuario()}"
                                      update=":formPrincipal,:formularioU"/>
                     </h:panelGrid>

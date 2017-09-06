@@ -58,9 +58,13 @@
                 <p/>
                 <p:outputLabel value="Descrição "/>
                 <p:inputTextarea value="#{insetoControle.novaEspecie.descricao}"/>
+
                 <p/>
                 <p:commandButton value="Cadastrar" action="#{insetoControle.cadastrar}"/>
-                <p:messages />
+
+                <p:outputPanel>
+                    <p:messages/>
+                </p:outputPanel>              
 
             </h:form>   
 

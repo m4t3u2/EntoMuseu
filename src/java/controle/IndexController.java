@@ -95,9 +95,9 @@ public class IndexController implements Serializable {
     }
 
     public void atualizarCaminho() {
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String cam = servletContext.getRealPath("");
-        caminho = cam + "resources" + File.separator + "pacotes" + File.separator + especieSelecionada.getCodigo() + File.separator + "interactive_3d.html";
+//        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+//        String cam = servletContext.getRealPath("");
+        caminho = File.separator + "resources" + File.separator + "pacotes" + File.separator + especieSelecionada.getCodigo() + File.separator + "interactive_3d.html";
         System.out.println("Caminho: " + caminho);
     }
 
