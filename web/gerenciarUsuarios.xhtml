@@ -9,7 +9,7 @@
         <ui:define name="body">
             <h:form style="margin-bottom: 10px;">
                 <p:commandLink value="Novo Usuário" onclick="PF('dlgNovoUsuario').show()"/>
-                <p:commandLink style="margin-left: 15px;" value="Voltar" onclick=""/>
+                <p:commandLink style="margin-left: 15px;" value="Voltar" action="/menu" immediate="true"/>
             </h:form>
             
             <h:form id="formPrincipal">
@@ -47,16 +47,16 @@
                 <h:form id="formularioU">
                     <h:panelGrid columns="2">
                     <p:outputLabel value="Nome"/>
-                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.nome}"/>
+                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.nome}" requiredMessage="Digite um Nome."/>
                     <p:outputLabel value="Login"/>
-                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.login}"/>
+                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.login}" requiredMessage="Digite um Login."/>
                     <p:outputLabel value="Email"/>
-                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.email}" validatorMessage="E-mail inválido.">
+                    <p:inputText required="true" value="#{usuarioControle.novoUsuario.email}" requiredMessage="Digite um Email." validatorMessage="E-mail inválido." >
                         <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                     </p:inputText>
                     <p:outputLabel value="Senha"/>
-                    <p:inputText required="true" type="password" value="#{usuarioControle.novoUsuario.senha}"/>
-                    <p:commandButton value="Ok" oncomplete="PF('dlgNovoUsuario').hide()" action="#{usuarioControle.incluirUsuario()}"
+                    <p:inputText required="true" type="password" value="#{usuarioControle.novoUsuario.senha}" requiredMessage="Digite uma Senha."/>
+                    <p:commandButton value="Ok" oncomplete="" action="#{usuarioControle.incluirUsuario()}"
                                      update=":formPrincipal,:formularioU"/>
                     </h:panelGrid>
                     <p:messages id="messages" showDetail="false" showIcon="false"/>

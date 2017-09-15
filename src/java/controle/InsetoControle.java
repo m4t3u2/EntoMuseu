@@ -84,7 +84,7 @@ public class InsetoControle implements Serializable {
         familiaSelecionada = new Familia();
         ordemSelecionada = new Ordem();
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inseto Cadastrado. Agora envie as imagens.", null));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inseto Cadastrado, agora envie as imagens.", null));
     }
 
     public void uploadArquivoHorizontal(FileUploadEvent event) {

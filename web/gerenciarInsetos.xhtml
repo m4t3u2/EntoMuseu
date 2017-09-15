@@ -7,7 +7,12 @@
 
     <ui:composition template="template.xhtml">
         <ui:define name="body">
-            <p:fieldset legend="Cadastro">
+
+            <h:form style="margin-bottom: 10px;">
+                <p:commandLink style="" value="Voltar" action="/menu" immediate="true"/>
+            </h:form>
+
+            <p:fieldset id="fieldCadastro" legend="Cadastro">
                 <h:form>
                     <h:panelGrid columns="2">
                         <p:outputLabel value="Ordem"/>
@@ -54,10 +59,12 @@
                     </h:panelGrid>
 
                     <p:outputLabel value="Espécie "/>
-                    <p:inputText value="#{insetoControle.novaEspecie.nome}"/>
+                    <p:inputText value="#{insetoControle.novaEspecie.nome}" required="true" 
+                                 requiredMessage="Informe a Espécie."/>
                     <p/>
                     <p:outputLabel value="Descrição "/>
-                    <p:inputTextarea value="#{insetoControle.novaEspecie.descricao}"/>
+                    <p:inputTextarea value="#{insetoControle.novaEspecie.descricao}" required="true" 
+                                     requiredMessage="Informe a Descrição."/>
                     <p/>
                     <p:commandButton value="Cadastrar" action="#{insetoControle.cadastrar}" update="@form"/>
                     <p/>
@@ -70,11 +77,14 @@
             <p/>
             <p:fieldset legend="Horizontal">
                 <h:form>
-                    <p>Obs: Selecione as 38 imagens.</p>
+                    <p>Obs: Selecione as 15 imagens de uma vez.</p>
+                    <p>Caso não tenha, deixar em branco.</p>
                     <p:fileUpload fileUploadListener="#{insetoControle.uploadArquivoHorizontal}" 
                                   mode="advanced" dragDropSupport="false"
                                   update="messages" 
                                   multiple="true"
+                                  fileLimit="15"
+                                  fileLimitMessage="Você selecionou mais de 15 imagens."
                                   allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                     <p:growl id="messages" showDetail="true" />
                 </h:form>  
@@ -83,16 +93,20 @@
             <p/>
             <p:fieldset legend="Vertical">
                 <h:form>
-                    <p>Obs: Selecione as 38 imagens.</p>
+                    <p>Obs: Selecione as 15 imagens de uma vez.</p>
+                    <p>Caso não tenha, deixar em branco.</p>
                     <p:fileUpload fileUploadListener="#{insetoControle.uploadArquivoVertical}" 
                                   mode="advanced" dragDropSupport="false"
                                   update="messages" 
                                   multiple="true"
+                                  fileLimit="15"
+                                  fileLimitMessage="Você selecionou mais de 15 imagens."
+                                  
                                   allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                     <p:growl id="messages" showDetail="true" />
                 </h:form>  
             </p:fieldset>
-            
+
         </ui:define>
     </ui:composition>    
 </html>
