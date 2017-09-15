@@ -1,5 +1,5 @@
 body:before{
-    content: " ";
+/*    content: " ";
     display: block;
     position: absolute;
     left: 0;
@@ -15,12 +15,12 @@ body:before{
     -o-background-size: cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
-    background-size: cover;
+    background-size: cover;*/
 }
 
 body{
-    /*background-image: url('./imagens/bg.png');*/
-    /*background-color: #F8F8FF;*/
+    background-image: url('./imagens/bg.png');
+    background-color: #F8F8FF;
     font-size: 12px;
     margin-top: -1px;
     background-repeat: no-repeat;
@@ -36,17 +36,12 @@ body{
     background: transparent;
 }
 
-/*.tabelaMadeira tr td{
-    background: rgba(153,76,0, 0.4);
-    border: transparent !important;
+.fieldSetCenter{
+    margin: 4px auto;
 }
 
-.tabelaMadeira tr{
-    background: transparent !important;
-}*/
-
 fieldset{
-    background: rgba(153,76,0, 0.2) !important;
+    background: rgba(153,76,0, 0.3) !important;
     width: 50%;
 }
 
@@ -73,7 +68,7 @@ a{
     text-decoration: none;
 }
 
-#cabecalho {
+#cabecalho{
     margin-top: -3%;
 }
 

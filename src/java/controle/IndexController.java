@@ -10,17 +10,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import modelo.Especie;
 import modelo.Familia;
 import modelo.Genero;
@@ -60,7 +55,7 @@ public class IndexController implements Serializable {
         ordemDao = new OrdemDao();
         ordens = ordemDao.listarOrdem();
         ordemSelecionada = new Ordem();
-        System.out.println(ordens.size());
+//        System.out.println(ordens.size());
 
         familiaDao = new FamiliaDao();
         familias = new ArrayList<>();
@@ -110,7 +105,7 @@ public class IndexController implements Serializable {
 //        String cam = servletContext.getRealPath("");
         caminho = File.separator + "resources" + File.separator + "pacotes" + File.separator + especieSelecionada.getCodigo()
                 + File.separator + "posicao.html";
-        System.out.println("Caminho: " + caminho);
+//        System.out.println("Caminho: " + caminho);
     }
 
     public void abrirImagem(){
@@ -119,7 +114,14 @@ public class IndexController implements Serializable {
             HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
             HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             String uri = req.getRequestURI();
-            res.getWriter().println("<script>window.open('" + caminho + "','_blank', 'location=yes,height=600,width=800,scrollbars=yes,status=yes'); window.parent.location.href= '" + uri + "';</script>");
+            res.getWriter().println("<script>window.open('" + caminho +
+                    "','_blank', 'location=yes,height=600,width=800,scrollbars=yes,status=yes');"
+                            + " window.parent.location.href= '" + uri + "';</script>");
+            
+            System.out.println("Res: "+ res);
+            System.out.println("ResGet: "+res.getWriter());
+            System.out.println("Caminho: "+caminho);
+            System.out.println("Uri: "+uri);
         } catch (IOException ex) {
             System.out.println("Erro AbrirImagem: " + ex);
         }

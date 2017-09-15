@@ -101,7 +101,7 @@ public class InsetoControle implements Serializable {
                 + File.separator + fileName;
 
         if (writeToFile(newFileName, event.getFile().getContents())) {
-            System.out.println("Sucesso no Upload.");
+//            System.out.println("Sucesso no Upload.");
         }
     }
 
@@ -119,7 +119,7 @@ public class InsetoControle implements Serializable {
                 + File.separator + fileName;
 
         if (writeToFile(newFileName, event.getFile().getContents())) {
-            System.out.println("Sucesso no Upload.");
+//            System.out.println("Sucesso no Upload.");
         }
     }
 
@@ -137,7 +137,8 @@ public class InsetoControle implements Serializable {
                         
             copiarBase(ultimoInserido);
         } catch (Exception ex) {
-            System.out.println("Erro ao criar pasta:" + ex);
+            System.out.println("Falha ao criar pasta.");
+            System.out.println("Erro: " + ex);
         }
     }
 
@@ -168,8 +169,7 @@ public class InsetoControle implements Serializable {
             FileUtils.copyDirectory(origem, destinoH);
             FileUtils.copyDirectory(origem, destinoV);
             FileUtils.copyDirectory(origem2, destino2);
-            System.out.println("Base copiada.");
-        } catch (Exception e) {
+            } catch (Exception e) {
             System.out.println("Falha ao mover base.");
             System.out.println("Erro: " + e);
         }

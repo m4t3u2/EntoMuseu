@@ -22,7 +22,7 @@
 
         <h:form id="fPrincipal">     
 
-            <p:fieldset legend="Ordem">
+            <p:fieldset styleClass="fieldSetCenter" legend="Ordem">
                 <p/>
                 <p:selectOneMenu id="comboOrdem" value="#{indexController.ordemSelecionada}" 
                                  converter="ordemConverter" 
@@ -41,7 +41,7 @@
             </p:fieldset>
 
 
-            <p:fieldset legend="Família">
+            <p:fieldset styleClass="fieldSetCenter" legend="Família">
                 <p:selectOneMenu id="comboFamilia" value="#{indexController.familiaSelecionada}" 
                                  converter="familiaConverter" 
                                  required="true" requiredMessage="Escolha um item.">
@@ -58,7 +58,7 @@
             </p:fieldset>
 
 
-            <p:fieldset legend="Gênero">
+            <p:fieldset styleClass="fieldSetCenter" legend="Gênero">
                 <p:selectOneMenu id="comboGenero" value="#{indexController.generoSelecionado}" 
                                  converter="generoConverter" 
                                  required="true" requiredMessage="Escolha um item.">
@@ -75,7 +75,7 @@
             </p:fieldset>
 
 
-            <p:fieldset legend="Espécie">
+            <p:fieldset styleClass="fieldSetCenter" legend="Espécie">
                 <p:selectOneMenu id="comboEspecie" value="#{indexController.especieSelecionada}" 
                                  converter="especieConverter" 
                                  required="true" requiredMessage="Escolha um item.">
@@ -91,10 +91,10 @@
                 <p:outputLabel id="descriEspecie" value="#{indexController.especieSelecionada.descricao}"/>
 
                 <p/>
-                <p:commandLink id="linkAbrir" value="teste" action="#{indexController.abrirImagem()}"> 
-                    teste
+                <p:commandLink id="linkAbrir" action="#{indexController.abrirImagem()}"> 
+                    Visualizar Espécie
                 </p:commandLink>
-
+                
             </p:fieldset>
 
         </h:form>
